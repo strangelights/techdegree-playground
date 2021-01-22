@@ -1,1 +1,3 @@
-A PHP playground. No rules, just fun.
+# A PHP playground.
+
+### No rules, just fun.
