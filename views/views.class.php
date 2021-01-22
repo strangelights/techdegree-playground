@@ -14,9 +14,9 @@ $am_i_coding = $josh->get_coding();
 $am_i_getting_it = $josh->get_getting_it();
 
 
-echo "<footer><br><sup>Hello, my name is $my_name and I am $my_age years old. I was born on $my_dob and I currently live in $my_location.</sup>", 
+echo "<br><sup>Hello, my name is $my_name and I am $my_age years old. I was born on $my_dob and I currently live in $my_location.</sup>", 
 "<sup>Today? $am_i_coding and $am_i_getting_it</sup>",
-"<sup>My SSN, you ask? $my_ssn</sup></footer>";
+"<sup> My SSN, you ask? $my_ssn</sup><br>";
 
 // Dat Bish
 $ashley = new Person("Atlanta, GA", false, true);
@@ -25,5 +25,3 @@ $ash_name = $ashley->get_name();
 $ash_location = $ashley->get_location();
 $is_ash_coding = $ashley->get_coding();
 $butisshegetitdoh = $ashley->get_getting_it();
-
-// echo "<br><sup>Hello, my name is $ash_name and I currently stay at $ash_location. Coding? Who me? $is_ash_coding But still, $butisshegetitdoh B'leedat. No cap.</sup>";
