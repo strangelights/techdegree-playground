@@ -28,3 +28,5 @@ try {
 // echo '<pre>', json_encode($results->fetchAll(PDO::FETCH_ASSOC), JSON_PRETTY_PRINT), '</pre><br>';
 
 //TO-DO: Add 'color' column to DB, add 'Amps' DB
+
+// Git token testing
