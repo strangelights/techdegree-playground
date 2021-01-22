@@ -11,6 +11,7 @@ function display_results() {
         exit;
     }
 
-    $guitars = json_encode($results->fetchAll(PDO::FETCH_ASSOC), JSON_PRETTY_PRINT);
+    // $guitars = json_encode($results->fetchAll(PDO::FETCH_ASSOC), JSON_PRETTY_PRINT);
+    $guitars = $results->fetchAll(PDO::FETCH_ASSOC);
     return $guitars;
 }

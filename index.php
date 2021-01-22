@@ -19,4 +19,10 @@ if (isset($_GET['number'])) {
 }
 
 $guitars = display_results();
-echo "<pre> $guitars </pre>";
+
+foreach ($guitars as $guitar) {
+    echo $guitar["year"] . " " ,
+         $guitar["make"] . " ",
+         $guitar["model"] . "<br>";
+}
+
