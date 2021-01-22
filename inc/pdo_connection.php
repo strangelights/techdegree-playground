@@ -29,4 +29,3 @@ try {
 
 //TO-DO: Add 'color' column to DB, add 'Amps' DB
 
-// Git token testing
