@@ -23,6 +23,12 @@ $guitars = display_results();
 foreach ($guitars as $guitar) {
     echo $guitar["year"] . " " ,
          $guitar["make"] . " ",
-         $guitar["model"] . "<br>";
+         $guitar["model"] . "<br>",
+         '<img src="',
+         $guitar["image_url"],
+         '" class="img-thumbnail" width="300" alt="',
+         $guitar["year"] . " " ,
+         $guitar["model"], 
+         '">' . "<br>"; 
 }
 
