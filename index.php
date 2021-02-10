@@ -18,17 +18,31 @@ if (isset($_GET['number'])) {
     echo 'Number: ', $test;
 }
 
-$guitars = display_results();
+$guitars = display_guitars();
+$amps = display_amps();
 
 foreach ($guitars as $guitar) {
-    echo $guitar["year"] . " " ,
+    echo "<h5>",
+         $guitar["year"] . " " ,
          $guitar["make"] . " ",
-         $guitar["model"] . "<br>",
+         $guitar["model"],
+         " - " . $guitar["color"],
+         ", Made in " . $guitar["country"] . "</h5><br>",     
          '<img src="',
          $guitar["image_url"],
          '" class="img-thumbnail" width="300" alt="',
          $guitar["year"] . " " ,
          $guitar["model"], 
-         '">' . "<br>"; 
+         '">' . "<br><br>"; 
 }
 
+foreach ($amps as $amp) {
+    echo "<h5>",
+         $amp["year"] . " " ,
+         $amp["make"] . " ",
+         $amp["model"] . "</h5><br>",
+         '<img src="',
+         $amp["image_url"],
+         '" class="img-thumbnail" width="300" alt="',
+         '">' . "<br><br>"; 
+}
