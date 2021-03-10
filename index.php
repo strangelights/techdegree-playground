@@ -13,36 +13,65 @@ include_once './inc/functions.php';
 include_once './models/models.class.php';
 include_once './views/views.class.php';
 
-if (isset($_GET['number'])) {
-    $test = $_GET['number'];
-    echo 'Number: ', $test;
+
+// id query string value sanitized to prevent possible SQL injection
+if (!empty($_GET["guitar_id"])) {
+    $id = filter_input(INPUT_GET, "guitar_id", FILTER_SANITIZE_NUMBER_INT);
+    $item = single_guitar_array($id);
+     echo "<h5>",
+          $item["year"] . " " ,
+          $item["make"] . " ",
+          $item["model"] . "</h5><br>",
+          '<img src="',
+          $item["image_url"],
+          '" class="img-thumbnail" width="300" alt="',
+          '">' . "<br><br><br><br>"; 
+}
+if (!empty($_GET["amp_id"])) {
+    $id = filter_input(INPUT_GET, "amp_id", FILTER_SANITIZE_NUMBER_INT);
+    $item = single_amp_array($id);
+     echo "<h5>",
+          $item["year"] . " " ,
+          $item["make"] . " ",
+          $item["model"] . "</h5><br>",
+          '<img src="',
+          $item["image_url"],
+          '" class="img-thumbnail" width="300" alt="',
+          '">' . "<br><br><br><br>"; 
 }
 
-$guitars = display_guitars();
-$amps = display_amps();
+// Clicking Show All button displays all Guitars and Amps in database
+if (isset($_GET["show_all"])) {
+    $guitars = display_guitars();
+    $amps = display_amps();
 
-foreach ($guitars as $guitar) {
-    echo "<h5>",
-         $guitar["year"] . " " ,
-         $guitar["make"] . " ",
-         $guitar["model"],
-         " - " . $guitar["color"],
-         ", Made in " . $guitar["country"] . "</h5><br>",     
-         '<img src="',
-         $guitar["image_url"],
-         '" class="img-thumbnail" width="300" alt="',
-         $guitar["year"] . " " ,
-         $guitar["model"], 
-         '">' . "<br><br>"; 
+    foreach ($guitars as $guitar) {
+        echo "<h5>",
+            $guitar["year"] . " " ,
+            $guitar["make"] . " ",
+            $guitar["model"],
+            " - " . $guitar["color"],
+            ", Made in " . $guitar["country"] . "</h5><br>",     
+            '<img src="',
+            $guitar["image_url"],
+            '" class="img-thumbnail" width="300" alt="',
+            $guitar["year"] . " " ,
+            $guitar["model"], 
+            '">' . "<br><br>"; 
+    }
+
+    foreach ($amps as $amp) {
+        echo "<h5>",
+            $amp["year"] . " " ,
+            $amp["make"] . " ",
+            $amp["model"] . "</h5><br>",
+            '<img src="',
+            $amp["image_url"],
+            '" class="img-thumbnail" width="300" alt="',
+            '">' . "<br><br>"; 
+    }
 }
 
-foreach ($amps as $amp) {
-    echo "<h5>",
-         $amp["year"] . " " ,
-         $amp["make"] . " ",
-         $amp["model"] . "</h5><br>",
-         '<img src="',
-         $amp["image_url"],
-         '" class="img-thumbnail" width="300" alt="',
-         '">' . "<br><br>"; 
-}
+
+
+   

@@ -34,3 +34,44 @@ function display_amps() {
     $amps = $results->fetchAll(PDO::FETCH_ASSOC);
     return $amps;
 }
+
+
+function single_guitar_array($id) {
+    include "pdo_connection.php";
+
+    try {
+        $results = $db->prepare(
+            "SELECT year, make, model, image_url 
+             FROM guitars 
+             WHERE id = ?");
+        $results->bindParam(1,$id,PDO::PARAM_INT);
+        $results->execute();
+    } catch (\Throwable $th) {
+        echo 'Unable to retrieve results.<br>';
+        echo 'Error: ' . $th->getMessage();
+        exit;
+    }
+
+    $item = $results->fetch(PDO::FETCH_ASSOC);
+    return $item;
+}
+
+function single_amp_array($id) {
+    include "pdo_connection.php";
+
+    try {
+        $results = $db->prepare(
+            "SELECT year, make, model, image_url 
+             FROM amps 
+             WHERE id = ?");
+        $results->bindParam(1,$id,PDO::PARAM_INT);
+        $results->execute();
+    } catch (\Throwable $th) {
+        echo 'Unable to retrieve results.<br>';
+        echo 'Error: ' . $th->getMessage();
+        exit;
+    }
+
+    $item = $results->fetch(PDO::FETCH_ASSOC);
+    return $item;
+}
