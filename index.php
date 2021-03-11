@@ -71,7 +71,28 @@ if (isset($_GET["show_all"])) {
             '">' . "<br><br>"; 
     }
 }
-
-
-
    
+// Clicking RAND button displays random Guitar from database
+if (isset($_GET["random"])) {
+    $rand_guitar = random_guitar_array();
+    // $rand_amp = random_amp_array();  // to be added later
+    echo "<h5>",
+          $rand_guitar["year"] . " " ,
+          $rand_guitar["make"] . " ",
+          $rand_guitar["model"] . "</h5><br>",
+          '<img src="',
+          $rand_guitar["image_url"],
+          '" class="img-thumbnail" width="300" alt="',
+          '">' . "<br><br><br><br>"; 
+
+    // foreach ($rand_amp as $amp) {
+    //     echo "<h5>",
+    //         $amp["year"] . " " ,
+    //         $amp["make"] . " ",
+    //         $amp["model"] . "</h5><br>",
+    //         '<img src="',
+    //         $amp["image_url"],
+    //         '" class="img-thumbnail" width="300" alt="',
+    //         '">' . "<br><br>"; 
+    // }
+}
