@@ -10,7 +10,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
-    <div class="card text-dark bg-light mb-3" style="max-width: 20rem;">
+    <div class="card text-dark bg-light mb-3" style="max-width: 25rem;">
         <div class="card-body">
             <?php include_once './views/views.form.php'; ?>
         </div>    

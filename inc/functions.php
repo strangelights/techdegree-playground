@@ -75,3 +75,23 @@ function single_amp_array($id) {
     $item = $results->fetch(PDO::FETCH_ASSOC);
     return $item;
 }
+
+function random_guitar_array() {
+    include "pdo_connection.php";
+
+    try {
+        $results = $db->query(
+            "SELECT year, make, model, image_url 
+            FROM guitars 
+            ORDER BY RAND()
+            LIMIT 1"
+        );
+    } catch (\Throwable $th) {
+        echo 'Unable to retrieve results.<br>';
+        echo 'Error: ' . $th->getMessage();
+        exit;
+    }
+
+    $item = $results->fetch(PDO::FETCH_ASSOC);
+    return $item;
+}
