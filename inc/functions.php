@@ -18,7 +18,6 @@ function display_guitars() {
 
 // To do: Create Amps DB and use JOIN statements and WHERE clause to compbine with Guitars and build function to retrieve specific guitar / amp that meets given criteria.
 
-
 function display_amps() {
     include "pdo_connection.php";
 
@@ -114,4 +113,49 @@ function random_amp_array() {
 
     $item = $results->fetch(PDO::FETCH_ASSOC);
     return $item;
+}
+
+// Pagination
+function get_catalog_count_guitars($category = null): int {
+    $category = strtolower($category);
+    include "pdo_connection.php";
+
+    try {
+        $sql = "SELECT COUNT(id) FROM guitars";
+        if (!empty($category)) {
+            $result = $db->prepare(
+                $sql . " WHERE LOWER(category) = ?"
+            );
+            $result->bindParam(1, $category, PDO::PARAM_STR);
+        } else {
+            $result = $db->prepare($sql);
+        }
+        $result->execute();
+    } catch (\Throwable $th) {
+        echo "bad query";
+    }
+    $count = $result->fetchColumn(0);
+    return $count;
+}
+
+function get_catalog_count_amps($category = null): int {
+    $category = strtolower($category);
+    include "pdo_connection.php";
+
+    try {
+        $sql = "SELECT COUNT(id) FROM amps";
+        if (!empty($category)) {
+            $result = $db->prepare(
+                $sql . " WHERE LOWER(category) = ?"
+            );
+            $result->bindParam(1, $category, PDO::PARAM_STR);
+        } else {
+            $result = $db->prepare($sql);
+        }
+        $result->execute();
+    } catch (\Throwable $th) {
+        echo "bad query";
+    }
+    $count = $result->fetchColumn(0);
+    return $count;
 }

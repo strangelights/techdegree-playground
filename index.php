@@ -14,6 +14,38 @@ include_once './models/models.class.php';
 include_once './views/views.class.php';
 
 
+// Pagination
+$items_per_page = 3;
+
+if (isset($_GET["pg"])) {
+    $current_page = filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);
+}
+if (empty($current_page)) {
+    $current_page = 1; 
+}
+$section = null; // no $sections yet
+$total_items = get_catalog_count_guitars($section);
+$total_pages = ceil($total_items / $items_per_page);
+
+// Limit results in redirect
+$limit_results = "";
+if (!empty($section)) {
+    $limit_results = "cat=" . $section . "&";
+}
+
+// Redirect too-large page numbers to the last page
+if ($current_page > $total_pages) {
+    header("location:index.php?" . $limit_results . "pg=" . $total_pages);
+}
+
+// Redirect too-small page numbers to the first page
+if ($current_page < 1) {
+    header("location:index.php?" . $limit_results . "pg=1");
+}
+
+// Determine offset for the current page. E.g. Page 3 with 8 items per peage, offset is 16
+$offset = ($current_page - 1) * $items_per_page;
+
 // id query string value sanitized to prevent possible SQL injection
 if (!empty($_GET["guitar_id"])) {
     $id = filter_input(INPUT_GET, "guitar_id", FILTER_SANITIZE_NUMBER_INT);
