@@ -24,24 +24,27 @@ if (empty($current_page)) {
     $current_page = 1; 
 }
 $section = null; // no $sections yet
-$total_items = get_catalog_count_guitars($section);
-$total_pages = ceil($total_items / $items_per_page);
+$total_guitars = get_catalog_count_guitars($section);
+$total_guitar_pages = ceil($total_guitars / $items_per_page);
 
-// Limit results in redirect
-$limit_results = "";
-if (!empty($section)) {
-    $limit_results = "cat=" . $section . "&";
-}
+$total_amps = get_catalog_count_amps($section);
+$total_amp_pages = ceil($total_amps / $items_per_page);
 
-// Redirect too-large page numbers to the last page
-if ($current_page > $total_pages) {
-    header("location:index.php?" . $limit_results . "pg=" . $total_pages);
-}
+// Limit results in redirect *unused*
+// $limit_results = "";
+// if (!empty($section)) {
+//     $limit_results = "cat=" . $section . "&";
+// }
 
-// Redirect too-small page numbers to the first page
-if ($current_page < 1) {
-    header("location:index.php?" . $limit_results . "pg=1");
-}
+// // Redirect too-large page numbers to the last page
+// if ($current_page > $total_pages) {
+//     header("location:index.php?" . $limit_results . "pg=" . $total_guitar_pages);
+// }
+
+// // Redirect too-small page numbers to the first page
+// if ($current_page < 1) {
+//     header("location:index.php?" . $limit_results . "pg=1");
+// }
 
 // Determine offset for the current page. E.g. Page 3 with 8 items per peage, offset is 16
 $offset = ($current_page - 1) * $items_per_page;
