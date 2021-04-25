@@ -1,10 +1,19 @@
 <?php
 
-function display_guitars() {
+function display_guitars($limit = null, $offset = 0) {
     include "pdo_connection.php";
 
     try {
-        $results = $db->query("SELECT year, make, model, color, country, image_url FROM guitars");
+        $sql = "SELECT year, make, model, color, country, image_url FROM guitars";
+        if (is_integer($limit)) {
+            $results = $db->prepare($sql . " LIMIT ? OFFSET ?");
+            // Bind limit and offset param values to the two ? above
+            $results->bindParam(1, $limit, PDO::PARAM_INT);
+            $results->bindParam(2, $offset, PDO::PARAM_INT);
+        } else {
+            $results = $db->prepare($sql);
+        }
+        $results->execute();
     } catch (\Throwable $th) {
         echo 'Unable to retrieve results.<br>';
         echo 'Error: ' . $th->getMessage();
@@ -18,11 +27,20 @@ function display_guitars() {
 
 // To do: Create Amps DB and use JOIN statements and WHERE clause to compbine with Guitars and build function to retrieve specific guitar / amp that meets given criteria.
 
-function display_amps() {
+function display_amps($limit = null, $offset = 0) {
     include "pdo_connection.php";
 
     try {
-        $results = $db->query("SELECT year, make, model, image_url FROM amps");
+        $sql = "SELECT year, make, model, image_url FROM amps";
+        if (is_integer($limit)) {
+            $results = $db->prepare($sql . " LIMIT ? OFFSET ?");
+            // Bind limit and offset param values to the two ? above
+            $results->bindParam(1, $limit, PDO::PARAM_INT);
+            $results->bindParam(2, $offset, PDO::PARAM_INT);
+        } else {
+            $results = $db->prepare($sql);
+        }
+        $results->execute();
     } catch (\Throwable $th) {
         echo 'Unable to retrieve results.<br>';
         echo 'Error: ' . $th->getMessage();

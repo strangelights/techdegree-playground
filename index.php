@@ -74,8 +74,8 @@ if (!empty($_GET["amp_id"])) {
 
 // Clicking Show All button displays all Guitars and Amps in database
 if (isset($_GET["show_all"])) {
-    $guitars = display_guitars();
-    $amps = display_amps();
+    $guitars = display_guitars($items_per_page, $offset);
+    $amps = display_amps($items_per_page, $offset);
 
     foreach ($guitars as $guitar) {
         echo "<h5>",
