@@ -30,6 +30,22 @@ $total_guitar_pages = ceil($total_guitars / $items_per_page);
 $total_amps = get_catalog_count_amps($section);
 $total_amp_pages = ceil($total_amps / $items_per_page);
 
+$pagination = "<div class=\"pagination\">";
+$pagination .= "Pages: ";  
+for ($i = 1;$i <= $total_guitar_pages;$i++) {
+    if ($i == $current_page) {
+        $pagination .= " <span>$i</span>";
+    } else {
+        $pagination .= " <a href='index.php?";
+        if (!empty($search)) {
+            $pagination .= "s=".urlencode(htmlspecialchars($search))."&";
+        } 
+        $pagination .= "pg=$i'>$i</a>";
+    }
+}
+$pagination .= "</div>";
+echo $pagination . "<br>";
+
 // Limit results in redirect *unused*
 // $limit_results = "";
 // if (!empty($section)) {
@@ -130,3 +146,5 @@ if (isset($_GET["random"])) {
           '">' . "<br><br>"; 
     
 }
+
+echo $pagination . "<br>";
