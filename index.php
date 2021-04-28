@@ -10,8 +10,8 @@ require './views/views.body.php';
 include_once './inc/functions.php';
 // include_once './inc/pdo_connection.php';  // Moved to inc/functions.php
 // include_once './inc/mysqli_connection.php';
-include_once './models/models.class.php';
-include_once './views/views.class.php';
+// include_once './models/models.class.php';
+// include_once './views/views.class.php';
 
 
 // Pagination
@@ -45,9 +45,7 @@ for ($i = 1;$i <= $total_guitar_pages;$i++) {
 }
 $pagination .= "</div>";
 
-// if ($_GET["show_all"]) {
-//     echo $pagination . "<br>";
-// }
+
 
 // Limit results in redirect *unused*
 // $limit_results = "";
@@ -55,15 +53,15 @@ $pagination .= "</div>";
 //     $limit_results = "cat=" . $section . "&";
 // }
 
-// // Redirect too-large page numbers to the last page
-// if ($current_page > $total_pages) {
-//     header("location:index.php?" . $limit_results . "pg=" . $total_guitar_pages);
-// }
+// Redirect too-large page numbers to the last page
+if ($current_page > $total_guitar_pages) {
+    header("location:index.php?" . $limit_results . "pg=" . $total_guitar_pages);
+}
 
-// // Redirect too-small page numbers to the first page
-// if ($current_page < 1) {
-//     header("location:index.php?" . $limit_results . "pg=1");
-// }
+// Redirect too-small page numbers to the first page
+if ($current_page < 1) {
+    header("location:index.php?" . $limit_results . "pg=1");
+}
 
 // Determine offset for the current page. E.g. Page 3 with 8 items per peage, offset is 16
 $offset = ($current_page - 1) * $items_per_page;
@@ -150,7 +148,3 @@ if (isset($_GET["random"])) {
           '">' . "<br><br>"; 
     
 }
-
-// if ($_GET["show_all"]) {
-//     echo $pagination . "<br>";
-// }
