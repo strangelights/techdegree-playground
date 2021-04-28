@@ -36,7 +36,7 @@ for ($i = 1;$i <= $total_guitar_pages;$i++) {
     if ($i == $current_page) {
         $pagination .= " <span>$i</span>";
     } else {
-        $pagination .= " <a href='index.php?";
+        $pagination .= " <a href='index.php?show_all=true&";
         if (!empty($search)) {
             $pagination .= "s=".urlencode(htmlspecialchars($search))."&";
         } 
@@ -44,7 +44,10 @@ for ($i = 1;$i <= $total_guitar_pages;$i++) {
     }
 }
 $pagination .= "</div>";
-echo $pagination . "<br>";
+
+// if ($_GET["show_all"]) {
+//     echo $pagination . "<br>";
+// }
 
 // Limit results in redirect *unused*
 // $limit_results = "";
@@ -95,6 +98,7 @@ if (!empty($_GET["amp_id"])) {
 if (isset($_GET["show_all"])) {
     $guitars = display_guitars($items_per_page, $offset);
     $amps = display_amps($items_per_page, $offset);
+    echo $pagination . "<br>";
 
     foreach ($guitars as $guitar) {
         echo "<h5>",
@@ -147,4 +151,6 @@ if (isset($_GET["random"])) {
     
 }
 
-echo $pagination . "<br>";
+// if ($_GET["show_all"]) {
+//     echo $pagination . "<br>";
+// }
