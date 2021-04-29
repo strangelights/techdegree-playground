@@ -14,8 +14,9 @@ include_once './models/models.class.php';
 include_once './views/views.class.php';
 include_once './controllers/controllers.pagination.php';
 
-// TODO Add flexbox container around results
-// TODO Templateize the html blow to clean up this file
+// TODO remove github warning banner and move link to icon in navbar
+
+// TODO Templateize the html below to clean up this file
 
 // id query string value sanitized to prevent possible SQL injection
 if (!empty($_GET["guitar_id"])) {
@@ -48,9 +49,10 @@ if (isset($_GET["show_all"])) {
     $guitars = display_guitars($items_per_page, $offset);
     $amps = display_amps($items_per_page, $offset);
     echo $pagination . "<br>";
+    echo "<div class=\"container\"><div class=\"row\">";
 
     foreach ($guitars as $guitar) {
-        echo "<h5>",
+        echo "<div class=\"col-sm\"><h5>",
             $guitar["year"] . " " ,
             $guitar["make"] . " ",
             $guitar["model"],
@@ -61,21 +63,24 @@ if (isset($_GET["show_all"])) {
             '" class="img-thumbnail" width="300" alt="',
             $guitar["year"] . " " ,
             $guitar["model"], 
-            '">' . "<br><br>"; 
+            '">' . "</div>"; 
     }
+    
+    echo "</div><div class=\"row\">";
 
     foreach ($amps as $amp) {
-        echo "<h5>",
+        echo "<div class=\"col-sm\"><h5>",
             $amp["year"] . " " ,
             $amp["make"] . " ",
             $amp["model"] . "</h5><br>",
             '<img src="',
             $amp["image_url"],
             '" class="img-thumbnail" width="300" alt="',
-            '">' . "<br><br>"; 
+            '">' . "</div>"; 
     }
+    echo "</div>";
 }
-   
+
 // Clicking RAND button displays random Guitar from database
 if (isset($_GET["random"])) {
     $rand_guitar = random_guitar_array();
