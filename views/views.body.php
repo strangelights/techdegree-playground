@@ -1,8 +1,5 @@
 <body class="m-4">
     <?php include_once './views/views.search.html'; ?>
-    <h1>Hello, world!</h1>
-
-    
     
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         This page is built with <a href="https://getbootstrap.com/docs/5.0/getting-started/introduction/" class="alert-link" target="_blank">Bootstrap 5!</a>&nbsp;
