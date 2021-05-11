@@ -23,7 +23,7 @@ $total_amp_pages = ceil($total_amps / $items_per_page);
 Pagination logic only checks $total_guitar_pages for now and loops out total pages based on $items_per_page setting at the top of the file 
 */
 
-$pagination = "<nav aria-label=\"...\"><ul class=\"pagination pagination-sm justify-content-end\">";
+$pagination = "<nav aria-label=\"...\"><ul class=\"pagination pagination-sm justify-content-end me-3\">";
 for ($i = 1;$i <= $total_guitar_pages;$i++) {
     if ($i == $current_page) {
         $pagination .= "<li class=\"page-item active\" aria-current=\"page\"><span class=\"page-link\">$i</span></li>";
