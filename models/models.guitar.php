@@ -54,6 +54,11 @@ class Guitar
         $this->color = $color;
     }
 
+    function getColor(): string
+    {
+        return $this->color;
+    }
+
     function setCountry($country): void
     {
         $this->country = $country;
