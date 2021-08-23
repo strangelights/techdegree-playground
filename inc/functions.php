@@ -4,7 +4,10 @@ function display_guitars($limit = null, $offset = 0) {
     include "pdo_connection.php";
 
     try {
-        $sql = "SELECT year, make, model, color, country, image_url FROM guitars";
+        $sql = "SELECT year, make, model, color, country, image_url 
+                FROM guitars
+                WHERE title LIKE ?";
+
         if (is_integer($limit)) {
             $results = $db->prepare($sql . " LIMIT ? OFFSET ?");
             // Bind limit and offset param values to the two ? above
@@ -31,7 +34,10 @@ function display_amps($limit = null, $offset = 0) {
     include "pdo_connection.php";
 
     try {
-        $sql = "SELECT year, make, model, image_url FROM amps";
+        $sql = "SELECT year, make, model, image_url 
+                FROM amps 
+                WHERE title LIKE ?";
+
         if (is_integer($limit)) {
             $results = $db->prepare($sql . " LIMIT ? OFFSET ?");
             // Bind limit and offset param values to the two ? above
@@ -140,7 +146,12 @@ function get_catalog_count_guitars($category = null): int {
 
     try {
         $sql = "SELECT COUNT(id) FROM guitars";
-        if (!empty($category)) {
+        if (!empty($search)) {
+            $result = $db->prepare(
+                $sql . " WHERE title LIKE ?"
+            );
+            $result->bindValue(1, '%'.$search.'%',PDO::PARAM_STR); 
+        } else if (!empty($category)) {
             $result = $db->prepare(
                 $sql . " WHERE LOWER(category) = ?"
             );
@@ -162,7 +173,12 @@ function get_catalog_count_amps($category = null): int {
 
     try {
         $sql = "SELECT COUNT(id) FROM amps";
-        if (!empty($category)) {
+        if (!empty($search)) {
+            $result = $db->prepare(
+                $sql . " WHERE title LIKE ?"
+            );
+            $result->bindValue(1, '%'.$search.'%', PDO::PARAM_STR);
+        } else if (!empty($category)) {
             $result = $db->prepare(
                 $sql . " WHERE LOWER(category) = ?"
             );
@@ -176,4 +192,61 @@ function get_catalog_count_amps($category = null): int {
     }
     $count = $result->fetchColumn(0);
     return $count;
+}
+
+// Search 
+
+// TODO: Combine these into global search algorithm
+// ??? SHIT GOT WEIRD CHECK GIT DIFF AND WHATCH VIDEO CLOSELY
+function search_guitars($search, $limit = null, $offset = 0) {
+    include "pdo_connection.php";
+
+    try {
+        $sql = "SELECT year, make, model, color, country, image_url FROM guitars";
+        if (is_integer($limit)) {
+            $results = $db->prepare($sql . " LIMIT ? OFFSET ?");
+            // Bind search,limit and offset param values to the three ? above
+            $results->bindValue(1,"%".$search."%",PDO::PARAM_STR);
+            $results->bindParam(1, $limit, PDO::PARAM_INT);
+            $results->bindParam(2, $offset, PDO::PARAM_INT);
+        } else {
+            $results = $db->prepare($sql);
+            $results->bindValue(1,"%".$search."%",PDO::PARAM_STR);
+        } 
+        $results->execute();
+    } catch (\Throwable $th) {
+        echo 'Unable to retrieve results.<br>';
+        echo 'Error: ' . $th->getMessage();
+        exit;
+    }
+
+    $guitar_search_results = $results->fetchAll(PDO::FETCH_ASSOC);
+    return $guitar_search_results;
+}
+
+
+function search_amps($limit = null, $offset = 0) {
+    include "pdo_connection.php";
+
+    try {
+        $sql = "SELECT year, make, model, image_url FROM amps";
+        if (is_integer($limit)) {
+            $results = $db->prepare($sql . " LIMIT ? OFFSET ?");
+            // Bind search,limit and offset param values to the three ? above
+            $results->bindValue(1,"%".$search."%",PDO::PARAM_STR);
+            $results->bindParam(1, $limit, PDO::PARAM_INT);
+            $results->bindParam(2, $offset, PDO::PARAM_INT);
+        } else {
+            $results = $db->prepare($sql);
+            $results->bindValue(1,"%".$search."%",PDO::PARAM_STR);
+        }
+        $results->execute();
+    } catch (\Throwable $th) {
+        echo 'Unable to retrieve results.<br>';
+        echo 'Error: ' . $th->getMessage();
+        exit;
+    }
+
+    $amp_search_results = $results->fetchAll(PDO::FETCH_ASSOC);
+    return $amp_search_results;
 }

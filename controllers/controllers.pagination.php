@@ -6,6 +6,10 @@ if (isset($_GET["pg"])) {
     $current_page = filter_input(INPUT_GET, "pg", FILTER_SANITIZE_NUMBER_INT);
 }
 
+if (isset($_GET["s"])) {
+    $search = filter_input(INPUT_GET, "pg", FILTER_SANITIZE_STRING);
+}
+
 // Default to page 1
 if (empty($current_page)) {
     $current_page = 1; 
