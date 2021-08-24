@@ -5,14 +5,14 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-require './views/views.head.php';
-require './views/views.body.php';
+require './views/head.php';
+require './views/body.php';
 include_once './inc/functions.php';
 // include_once './inc/pdo_connection.php';  // Moved to inc/functions.php
 // include_once './inc/mysqli_connection.php'; // No longer used
-include_once './models/models.class.php';
-include_once './views/views.class.php';
-include_once './controllers/controllers.pagination.php';
+include_once './models/class.php';
+include_once './views/class.php';
+include_once './controllers/pagination.php';
 
 $search = null;
 
